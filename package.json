@@ -5,9 +5,10 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --check . && eslint . --ext .ts",
+    "lint": "prettier --check . && eslint . --ext .ts tsc --noEmit",
     "lint:fix": "prettier --write . && eslint . --fix --ext .ts",
-    "tsc:check": "tsc --noEmit"
+    "tsc:check": "tsc --noEmit",
+    "prepare": "husky install"
   },
   "keywords": [],
   "author": "",
@@ -21,7 +22,14 @@
     "eslint": "^8.44.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-import": "^2.27.5",
+    "husky": "^8.0.3",
+    "lint-staged": "^13.2.3",
     "prettier": "^3.0.0",
+    "react": "^18.2.0",
     "typescript": "5.0"
+  },
+  "lint-staged": {
+    "*.ts": "eslint --cache --fix",
+    "*.{js,css,md}": "prettier --write"
   }
 }
