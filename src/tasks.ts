@@ -78,7 +78,7 @@ export const getOrderState = (order: Order2): StateOrder => order.state;
 // Нужно заменить FIXME на соответствующий тип
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type OmitFunction<T extends Record<any, any>, K extends keyof T> = Omit<T, K>;
+export type OmitFunction<T extends Record<any, any>, K extends keyof T> = Omit<T, K>;
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 
