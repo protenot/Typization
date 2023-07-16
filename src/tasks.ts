@@ -10,9 +10,9 @@ import * as React from "react";
 // Нужно заменить FIXME на тип который вычисляется на освове OrderState
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type OrderStatesCut<T, U> = Exclude<OrderState, T | U>[];
+export type OrderStatesCut<T, U> = Exclude<OrderState, T | U>[];
 
-const orderStates = [
+export const orderStates = [
   "initial",
   "inWork",
   "buyingSupplies",
@@ -38,9 +38,9 @@ export const getUserOrderStates = (
 // Нужно заменить FIXME на тип который достанет из Order все возможные состояния (state)
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
-type StateOrder = Order["state"];
+export type StateOrder = Order2["state"];
 
-type Order2 =
+export type Order2 =
   | {
       state: "initial";
       sum: number;

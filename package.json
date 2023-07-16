@@ -5,7 +5,7 @@
   "main": "index.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "lint": "prettier --check . && eslint . --ext .ts tsc --noEmit",
+    "lint": "prettier --check . && eslint . --ext .ts && tsc --noEmit",
     "lint:fix": "prettier --write . && eslint . --fix --ext .ts",
     "tsc:check": "tsc --noEmit",
     "prepare": "husky install"
