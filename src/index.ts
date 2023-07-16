@@ -35,7 +35,7 @@ div2.innerText = `2. Есть объединение (юнион) типов з�
    Результат  : ${order2}`;
 const obj = { state: "fullfilled", sum: 10, workerId: 1452, suppliesSum: 156 };
 const key = "sum";
-const order3= JSON.stringify(omit(obj, key));
+const order3 = JSON.stringify(omit(obj, key));
 const div3 = document.createElement("div");
 document.body.append(div3);
 div3.innerText = `3. Есть общая функция omit которая удаляет поле из объекта и возвращает его без этого поля
