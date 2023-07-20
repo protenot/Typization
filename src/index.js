@@ -2,14 +2,10 @@
 import {
   getUserOrderStates,
   getOrderState,
-  Order2,
-  StateOrder,
   omit,
-  OmitFunction,
   filterOnlyInitialAndInWorkOrder,
   getDefaultProps,
 } from "./tasks";
-
 const order1 = getUserOrderStates([
   "initial",
   "inWork",
@@ -23,11 +19,11 @@ div1.innerText = `1. В функцию приходит массив состо�
    Нужно заменить FIXME на тип который вычисляется на основе OrderState\n 
     На входе массив [ "initial","inWork", "buyingSupplies", "producing", "fullfilled"]\n
    Результат : ${order1}`;
-const ord11: Order2 = {
+const ord11 = {
   state: "initial",
   sum: 18,
 };
-const order2: StateOrder = getOrderState(ord11);
+const order2 = getOrderState(ord11);
 const div2 = document.createElement("div");
 document.body.append(div2);
 div2.innerText = `2. Есть объединение (юнион) типов заказов в различных состояниях
@@ -44,7 +40,6 @@ div3.innerText = `3. Есть общая функция omit которая уд
     На входе объект {state: "fullfilled", sum: 10, workerId: 1452, suppliesSum: 156}\n
     И ключ 'sum'\n
     Результат: ${order3}`;
-
 const order4 = filterOnlyInitialAndInWorkOrder({
   state: "producing",
   sum: 15,
@@ -52,7 +47,6 @@ const order4 = filterOnlyInitialAndInWorkOrder({
   suppliesSum: 17,
   produceEstimate: new Date(),
 });
-
 const div4 = document.createElement("div");
 document.body.append(div4);
 div4.innerText = `4. Есть объединение (юнион) типов заказов в различных состояниях
@@ -65,7 +59,6 @@ const component = {
   sum: 15,
   defaultProps: 10,
 };
-
 const order5 = getDefaultProps(component);
 const div5 = document.createElement("div");
 document.body.append(div5);

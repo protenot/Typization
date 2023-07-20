@@ -32,8 +32,10 @@ export interface ToDoTaskLibrary {
   filterStatus(status: Status): Promise<ToDoTask | ToDoTask[] | undefined>;
 }
 export function createID(): number {
-  return Math.floor(Math.random() * 1000);
+  return Math.floor(Math.random() * 10000);
 }
+const x = createID();
+console.log(x);
 export class ToDoList {
   tasks: ToDoTask[];
   constructor() {
