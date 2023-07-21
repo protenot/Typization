@@ -1,14 +1,12 @@
 import {
-  ToDoTaskLibrary,
+  //ToDoTaskLibrary,
   createID,
   ToDoList,
   Status,
   ToDoTask,
   Filter,
 } from "./interface";
-describe("ToDoTaskLibrary", () => {
-  let toDoTaskLibrary: ToDoTaskLibrary;
-
+describe("ToDoList", () => {
   /*   beforeEach(() => {
       toDoTaskLibrary = new ToDoTaskLibrary();
     });
@@ -59,15 +57,6 @@ describe("ToDoTaskLibrary", () => {
       expect(toDoList1.tasks.length).toBe(1);
     });
   });
-  /*  describe('getToDoTask',()=>{
-    it ('returns data from localStorage',()=>{
-       
-        const text:string = "Полить цветы";
-         toDoList.createToDoTask(text);
-        let result =  toDoList.getToDoTask()
-        expect(result).toBeDefined();
-        expect(result).toBe (null)
-    })*/
 });
 describe("getToDoTask", () => {
   it("should return an empty array when there are no tasks", async () => {
