@@ -98,7 +98,7 @@ describe("updateToDoTask", () => {
     const toDoList = new ToDoList();
     const task = {
       id: 1,
-      date: Date.parse("2023-7-21"),
+      date: 1689886800000,
       content: "Погулять с попугаем",
       status: Status.Pending,
     };
@@ -112,13 +112,13 @@ describe("updateToDoTask", () => {
       },
       {
         id: 2,
-        date: Date.parse("2023-7-21"),
+        date: 1689886800000,
         content: "Покормить черепаху",
         status: Status.Pending,
       },
       {
         id: 3,
-        date: Date.parse("2023-7-21"),
+        date: 1689886800000,
         content: "Купить слона",
         status: Status.Done,
       },
@@ -130,7 +130,7 @@ describe("updateToDoTask", () => {
       const toDoList = new ToDoList();
       const task = {
         id: 1,
-        date: Date.parse("2023-7-21"),
+        date: 1689886800000,
         content: "Погулять с попугаем",
         status: Status.Pending,
       };
@@ -138,13 +138,13 @@ describe("updateToDoTask", () => {
       expect(await toDoList.deleteToDoTask(task)).toEqual([
         {
           id: 2,
-          date: Date.parse("2023-7-21"),
+          date: 1689886800000,
           content: "Покормить черепаху",
           status: Status.Pending,
         },
         {
           id: 3,
-          date: Date.parse("2023-7-21"),
+          date: 1689886800000,
           content: "Купить слона",
           status: Status.Done,
         },
@@ -184,7 +184,7 @@ describe("updateToDoTask", () => {
       expect(await toDoList.filterToDoTask(slon)).toEqual([
         {
           id: 3,
-          date: Date.parse("2023-7-21"),
+          date: 1689886800000,
           content: "Купить слона",
           status: Status.Done,
         },
