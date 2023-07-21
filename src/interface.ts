@@ -105,21 +105,24 @@ export class ToDoList {
   async filterToDoTask(something: Filter): Promise<ToDoTask[]> {
     const item = (await this.getToDoTask()) as ToDoTask[];
     let newTasks: ToDoTask[];
-    for (let i = 0; i < item.length; i++) {
-      if (something.date) {
-        newTasks = item.filter((task) => (task.date = something.date));
-        return newTasks;
-      }
-      if (something.content) {
-        newTasks = item.filter((task) => (task.content = something.content));
-        return newTasks;
-      }
-      if (something.status) {
-        newTasks = item.filter((task) => (task.status = something.status));
-        return newTasks;
-      } else {
-        alert("Try again");
-      }
+
+    if (something.date) {
+      newTasks = item.filter((task) => task.date === something.date);
+      console.log(newTasks);
+      return newTasks;
+    }
+    if (something.content) {
+      newTasks = item.filter((task) =>
+        task.content.includes(something.content),
+      );
+      console.log(newTasks);
+      return newTasks;
+    }
+    if (something.status) {
+      newTasks = item.filter((task) => task.status === something.status);
+      return newTasks;
+    } else {
+      console.log("Try again");
     }
   }
 }

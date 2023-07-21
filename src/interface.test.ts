@@ -162,4 +162,62 @@ describe("updateToDoTask", () => {
       ]);
     });
   });
+  describe("filterToDoTask", () => {
+    it("filters by date", async () => {
+      localStorage.removeItem("tasks");
+      const dummyTasks: ToDoTask[] = [
+        {
+          id: 1,
+          date: 1689886900000,
+          content: "Погулять с кошкой",
+          status: Status.Delayed,
+        },
+        {
+          id: 2,
+          date: 1689887800000,
+          content: "Покормить черепаху",
+          status: Status.Pending,
+        },
+        {
+          id: 3,
+          date: 1689886800000,
+          content: "Купить слона",
+          status: Status.Done,
+        },
+      ];
+
+      localStorage.setItem("tasks", JSON.stringify(dummyTasks));
+      const toDoList = new ToDoList();
+      const slon = { content: "Купить слона" };
+      const data = { date: 1689886900000 } as Filter;
+      const stat = { status: "pending" } as Filter;
+
+      expect(await toDoList.filterToDoTask(slon)).toEqual([
+        {
+          id: 3,
+          date: Date.parse("2023-7-21"),
+          content: "Купить слона",
+          status: Status.Done,
+        },
+      ]);
+
+      expect(await toDoList.filterToDoTask(data)).toEqual([
+        {
+          id: 1,
+          date: 1689886900000,
+          content: "Погулять с кошкой",
+          status: Status.Delayed,
+        },
+      ]);
+
+      expect(await toDoList.filterToDoTask(stat)).toEqual([
+        {
+          id: 2,
+          date: 1689887800000,
+          content: "Покормить черепаху",
+          status: Status.Pending,
+        },
+      ]);
+    });
+  });
 });
