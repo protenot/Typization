@@ -76,14 +76,62 @@ describe("getToDoTask", () => {
   });
   it("should return an array of tasks when tasks exist in local storage", async () => {
     const dummyTasks: ToDoTask[] = [
-      { id: 1, date: new Date(), content: "Task 1", status: Status.Delayed },
-      { id: 2, date: new Date(), content: "Task 2", status: Status.Pending },
-      { id: 3, date: new Date(), content: "Task 3", status: Status.Done },
+      {
+        id: 1,
+        date: 1689886800000,
+        content: "Погулять с кошкой",
+        status: Status.Delayed,
+      },
+      {
+        id: 2,
+        date: 1689886800000,
+        content: "Покормить черепаху",
+        status: Status.Pending,
+      },
+      {
+        id: 3,
+        date: 1689886800000,
+        content: "Купить слона",
+        status: Status.Done,
+      },
     ];
 
     localStorage.setItem("tasks", JSON.stringify(dummyTasks));
     const toDoList = new ToDoList();
     const tasks = await toDoList.getToDoTask();
     expect(tasks).toStrictEqual(dummyTasks);
+  });
+});
+describe("updateToDoTask", () => {
+  it("updates data", async () => {
+    //localStorage.removeItem("tasks");
+    const toDoList = new ToDoList();
+    const task = {
+      id: 1,
+      date: Date.parse("2023-7-21"),
+      content: "Погулять с попугаем",
+      status: Status.Pending,
+    };
+
+    expect(await toDoList.updateToDoTask(task)).toEqual([
+      {
+        id: 1,
+        date: 1689886800000,
+        content: "Погулять с попугаем",
+        status: "pending",
+      },
+      {
+        id: 2,
+        date: Date.parse("2023-7-21"),
+        content: "Покормить черепаху",
+        status: Status.Pending,
+      },
+      {
+        id: 3,
+        date: Date.parse("2023-7-21"),
+        content: "Купить слона",
+        status: Status.Done,
+      },
+    ]);
   });
 });

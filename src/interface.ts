@@ -6,7 +6,7 @@ export enum Status {
 }
 export interface ToDoTask {
   id: number;
-  date: Date;
+  date: Date | number;
   content: string;
   status: Status;
 }
@@ -23,11 +23,10 @@ export interface ToDoTaskLibrary {
 
   getToDoTask(): Promise<ToDoTask[] | []>;
 
-  getAll(): Promise<ToDoTask[]>;
-  updateToDoTask(
-    id: number,
-    updateToDoTask: Partial<ToDoTask>,
-  ): Promise<Partial<ToDoTask>>;
+  // getAll(): Promise<ToDoTask[]>;
+
+  updateToDoTask(task: ToDoTask): Promise<ToDoTask[] | []>;
+
   deleteToDoTask(id: number): Promise<void>;
   filterDates(date: Date): Promise<ToDoTask | ToDoTask[] | undefined>;
   filterContent(content: string): Promise<ToDoTask | ToDoTask[] | undefined>;
@@ -66,17 +65,29 @@ export class ToDoList {
       }
     });
   }
+
   async getToDoTask(): Promise<ToDoTask[] | []> {
     const tasks: string | null = localStorage.getItem("tasks");
     if (tasks) {
-      // return JSON.parse(tasks) as ToDoTask[];
-      const parsedTasks: any[] = JSON.parse(tasks);
+      return JSON.parse(tasks) as ToDoTask[];
+      /*  const parsedTasks: any[] = JSON.parse(tasks);
       const formattedTasks: ToDoTask[] = parsedTasks.map((task: any) => ({
         ...task,
-        date: new Date(task.date), // преобразуем строковое значение даты в объект Date
+        date: new Date(task.date), 
       }));
-      return formattedTasks;
+      return formattedTasks; */
     }
     return [];
+  }
+
+  async updateToDoTask(task: ToDoTask): Promise<ToDoTask[] | []> {
+    const item = (await this.getToDoTask()) as ToDoTask[];
+    for (let i = 0; i < item.length; i++) {
+      if (task.id === item[i].id) item[i] = task;
+    }
+    console.log(item);
+
+    localStorage.setItem("item", JSON.stringify(item));
+    return item;
   }
 }
