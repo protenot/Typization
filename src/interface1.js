@@ -48,7 +48,7 @@ export class ToDoList {
   createToDoTask(text, task) {
     return __awaiter(this, void 0, void 0, function* () {
       return new Promise((resolve, reject) => {
-        if (this.tasks.some((t) => t.content == task.content)) {
+        if (this.tasks.some((t) => t.content == text)) {
           reject("Такая задача уже существует");
         } else {
           const newToDoTask = Object.assign(Object.assign({}, task), {

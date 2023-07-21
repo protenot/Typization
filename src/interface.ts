@@ -19,8 +19,10 @@ export interface Filter {
 
 export interface ToDoTaskLibrary {
   //tasks: ToDoTask[];
-  createToDoTask(text?: string, task?: ToDoTask): Promise<string>;
-  getToDoTask(task: ToDoTask): Promise<Partial<ToDoTask>>;
+  createToDoTask(text?: string, task?: ToDoTask): Promise<void>;
+
+  getToDoTask(): Promise<ToDoTask[] | []>;
+
   getAll(): Promise<ToDoTask[]>;
   updateToDoTask(
     id: number,
@@ -34,20 +36,25 @@ export interface ToDoTaskLibrary {
 export function createID(): number {
   return Math.floor(Math.random() * 10000);
 }
-const x = createID();
-console.log(x);
+//const x = createID();
+//console.log(x);
 export class ToDoList {
+  /*  static createToDoTask(text: string) {
+      throw new Error("Method not implemented.");
+  } */
   tasks: ToDoTask[];
   constructor() {
     this.tasks = JSON.parse(localStorage.getItem("tasks") || "[]");
   }
   async createToDoTask(text: string, task?: ToDoTask): Promise<string> {
     return new Promise((resolve, reject) => {
-      if (this.tasks.some((t) => t.content == task.content)) {
+      if (this.tasks.find((task) => task.content === text)) {
+        console.log(ToDoList);
         reject("Такая задача уже существует");
+        return;
       } else {
         const newToDoTask = {
-          ...task,
+          //...task,
           id: createID(),
           date: new Date(),
           content: text,
@@ -58,5 +65,18 @@ export class ToDoList {
         resolve("Задача создана");
       }
     });
+  }
+  async getToDoTask(): Promise<ToDoTask[] | []> {
+    const tasks: string | null = localStorage.getItem("tasks");
+    if (tasks) {
+      // return JSON.parse(tasks) as ToDoTask[];
+      const parsedTasks: any[] = JSON.parse(tasks);
+      const formattedTasks: ToDoTask[] = parsedTasks.map((task: any) => ({
+        ...task,
+        date: new Date(task.date), // преобразуем строковое значение даты в объект Date
+      }));
+      return formattedTasks;
+    }
+    return [];
   }
 }
