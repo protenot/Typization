@@ -4,6 +4,7 @@ import {
   ToDoList,
   Status,
   ToDoTask,
+  Filter,
 } from "./interface";
 describe("ToDoTaskLibrary", () => {
   let toDoTaskLibrary: ToDoTaskLibrary;
@@ -133,5 +134,32 @@ describe("updateToDoTask", () => {
         status: Status.Done,
       },
     ]);
+  });
+
+  describe("deleteToDoTask", () => {
+    it("deletes data", async () => {
+      const toDoList = new ToDoList();
+      const task = {
+        id: 1,
+        date: Date.parse("2023-7-21"),
+        content: "Погулять с попугаем",
+        status: Status.Pending,
+      };
+
+      expect(await toDoList.deleteToDoTask(task)).toEqual([
+        {
+          id: 2,
+          date: Date.parse("2023-7-21"),
+          content: "Покормить черепаху",
+          status: Status.Pending,
+        },
+        {
+          id: 3,
+          date: Date.parse("2023-7-21"),
+          content: "Купить слона",
+          status: Status.Done,
+        },
+      ]);
+    });
   });
 });

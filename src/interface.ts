@@ -11,11 +11,11 @@ export interface ToDoTask {
   status: Status;
 }
 
-export interface Filter {
-  date: Date;
-  content: string;
-  status: Status;
-}
+export type Filter = {
+  date?: Date | number;
+  content?: string;
+  status?: Status;
+};
 
 export interface ToDoTaskLibrary {
   //tasks: ToDoTask[];
@@ -23,14 +23,15 @@ export interface ToDoTaskLibrary {
 
   getToDoTask(): Promise<ToDoTask[] | []>;
 
-  // getAll(): Promise<ToDoTask[]>;
-
   updateToDoTask(task: ToDoTask): Promise<ToDoTask[] | []>;
 
-  deleteToDoTask(id: number): Promise<void>;
-  filterDates(date: Date): Promise<ToDoTask | ToDoTask[] | undefined>;
+  deleteToDoTask(task: ToDoTask): Promise<ToDoTask[] | []>;
+
+  filterToDoTask(someData: Filter): Promise<ToDoTask[]>;
+
+  /*  filterDates(date: Date): Promise<ToDoTask | ToDoTask[] | undefined>;
   filterContent(content: string): Promise<ToDoTask | ToDoTask[] | undefined>;
-  filterStatus(status: Status): Promise<ToDoTask | ToDoTask[] | undefined>;
+  filterStatus(status: Status): Promise<ToDoTask | ToDoTask[] | undefined>; */
 }
 export function createID(): number {
   return Math.floor(Math.random() * 10000);
@@ -85,9 +86,40 @@ export class ToDoList {
     for (let i = 0; i < item.length; i++) {
       if (task.id === item[i].id) item[i] = task;
     }
-    console.log(item);
 
     localStorage.setItem("item", JSON.stringify(item));
     return item;
+  }
+  async deleteToDoTask(task: ToDoTask): Promise<ToDoTask[] | []> {
+    const item = (await this.getToDoTask()) as ToDoTask[];
+    for (let i = 0; i < item.length; i++) {
+      if (task.id === item[i].id) {
+        item.splice(i, 1);
+      }
+    }
+    console.log(item);
+    localStorage.setItem("item", JSON.stringify(item));
+    return item;
+  }
+
+  async filterToDoTask(something: Filter): Promise<ToDoTask[]> {
+    const item = (await this.getToDoTask()) as ToDoTask[];
+    let newTasks: ToDoTask[];
+    for (let i = 0; i < item.length; i++) {
+      if (something.date) {
+        newTasks = item.filter((task) => (task.date = something.date));
+        return newTasks;
+      }
+      if (something.content) {
+        newTasks = item.filter((task) => (task.content = something.content));
+        return newTasks;
+      }
+      if (something.status) {
+        newTasks = item.filter((task) => (task.status = something.status));
+        return newTasks;
+      } else {
+        alert("Try again");
+      }
+    }
   }
 }
